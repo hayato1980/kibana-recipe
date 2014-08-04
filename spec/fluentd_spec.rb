@@ -6,8 +6,7 @@ include SpecInfra::Helper::Ssh
 include SpecInfra::Helper::DetectOS
  
 describe package('td-agent') do
-  it { should be_installed }
-  it { should be_version "1.1.19-0" }
+  it { should be_installed.by('rpm').with_version("1.1.19-0") }
 end
  
 describe command('td-agent --version') do
