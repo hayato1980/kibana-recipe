@@ -1,0 +1,23 @@
+#
+# Apache2アクセスログファイルを入力イベントとして定義
+#
+<source>
+  type tail                       # 入力プラグイン(tail)
+  path /var/log/httpd/access_log  # アクセスログのパス
+  tag td-centos.apache.access     # マッチしたログに付与する検索タグ
+  format apache2                  # ログ検索書式(apache2)
+  # ログ読み込み位置記録ファイル
+  pos_file /var/log/td-agent/httpd-access.log.pos
+</source>
+#
+# ソースタグにマッチするログをElasticSearchに送信する
+#
+<match *.apache.*>
+  type elasticsearch     # 出力プラグイン指定(elasticsearch)
+  include_tag_key true   # tagキーを使用する
+  tag_key @log_name      # tagキーを使用して絞り込み検索を行う
+  host localhost      # 送信先サーバーアドレス
+  port 9200              # サーバー待ち受けポート
+  logstash_format true   # LogStash形式のログを送信
+  flush_interval 10s     # ログ送信間隔(10秒)
+</match>
