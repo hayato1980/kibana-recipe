@@ -7,16 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-## java install
-package "httpd" do
-  action :install
-end
-
-## service start
-service "httpd" do
-  action [ :enable, :start ]
-end
-
 ## kibana install
 ## install
 remote_file "#{Chef::Config[:file_cache_path]}/kibana-3.1.0.tar.gz" do

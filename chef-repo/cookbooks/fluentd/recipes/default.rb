@@ -41,13 +41,6 @@ directory '/var/log/httpd' do
   action :create
 end
 
-## service start
-service "td-agent" do
-  action [ :enable, :restart ]
-end
-
-
-
 # for collector
 package "libcurl-devel" do
   action :install
@@ -61,4 +54,9 @@ bash "fluent-plugin-elasticsearch" do
   code <<-EOH
     /usr/lib64/fluent/ruby/bin/gem install fluent-plugin-elasticsearch
   EOH
+end
+
+## service start
+service "td-agent" do
+  action [ :enable, :restart ]
 end

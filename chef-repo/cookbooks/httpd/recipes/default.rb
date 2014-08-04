@@ -7,7 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-## java install
 package "httpd" do
   action :install
 end
